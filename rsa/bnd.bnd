@@ -1,3 +1,5 @@
 Bundle-Activator: org.apache.aries.rsa.core.Activator
 Private-Package: org.apache.aries.rsa.core
 Export-Package: org.osgi.service.remoteserviceadmin
+Provide-Capability: osgi.service;effective:=active;objectClass=org.osgi.service.remoteserviceadmin.RemoteServiceAdmin
+Require-Capability: osgi.service;effective:=active;filter:="(objectClass=org.apache.aries.rsa.spi.DistributionProvider)";cardinality:=multiple

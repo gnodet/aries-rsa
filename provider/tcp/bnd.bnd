@@ -1,1 +1,2 @@
 Bundle-Activator:  org.apache.aries.rsa.provider.tcp.Activator
+Provide-Capability: osgi.service;effective:=active;objectClass=org.apache.aries.rsa.spi.DistributionProvider;name=tcp

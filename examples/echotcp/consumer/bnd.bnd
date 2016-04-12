@@ -1,1 +1,2 @@
 -dsannotations: *
+Require-Capability: osgi.extender;osgi.extender=osgi.component

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="aries-rsa-${project.version}">
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="aries-rsa-${project.version}">
 
     <feature name="aries-rsa-core" version="${project.version}">
+        <feature dependency="true">aries-rsa-provider-fastbin</feature>
+        <feature dependency="true">aries-rsa-discovery-zookeeper</feature>
         <bundle>mvn:org.apache.aries.rsa/org.apache.aries.rsa.spi/${project.version}</bundle>
         <bundle>mvn:org.apache.aries.rsa/org.apache.aries.rsa.core/${project.version}</bundle>
         <bundle>mvn:org.apache.aries.rsa/org.apache.aries.rsa.topology-manager/${project.version}</bundle>
+        <requirement>aries.rsa.discovery</requirement>
         <conditional>
             <condition>eventadmin</condition>
             <bundle>mvn:org.apache.aries.rsa/org.apache.aries.rsa.eapub/${project.version}</bundle>
@@ -26,6 +29,7 @@
     <feature name="aries-rsa-discovery-local" version="${project.version}">
         <feature>aries-rsa-core</feature>
         <bundle>mvn:org.apache.aries.rsa.discovery/org.apache.aries.rsa.discovery.local/${project.version}</bundle>
+        <capability>aries.rsa.discovery</capability>
     </feature>
 
     <feature name="aries-rsa-discovery-zookeeper" version="${project.version}">
@@ -33,7 +37,8 @@
         <bundle>mvn:org.apache.zookeeper/zookeeper/${zookeeper.version}</bundle>
         <bundle>mvn:org.apache.aries.rsa.discovery/org.apache.aries.rsa.discovery.local/${project.version}</bundle>
         <bundle>mvn:org.apache.aries.rsa.discovery/org.apache.aries.rsa.discovery.zookeeper/${project.version}</bundle>
-        
+        <capability>aries.rsa.discovery</capability>
+
         <!-- Create config with defaults from metatype -->
         <config name="org.apache.aries.rsa.discovery.zookeeper">
         </config>

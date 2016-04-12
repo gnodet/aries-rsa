@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="aries-rsa-examples-${project.version}">
+
+    <repository>mvn:org.apache.aries.rsa/rsa-features/${project.version}/xml/features</repository>
+
+    <!--
+
+    EchoTcp example
+
+    In a bare karaf, run the following commands
+
+        > repo-add mvn:org.apache.aries.rsa.examples/org.apache.aries.rsa.examples.features/1.9-SNAPSHOT/xml/features
+        > feature:install aries-rsa-echotcp-consumer
+
+        > instance:create -furl mvn:org.apache.aries.rsa.examples/org.apache.aries.rsa.examples.features/1.9-SNAPSHOT/xml/features -f aries-rsa-echotcp-service server
+        > instance:start -w server
+
+     -->
+
+    <feature name="aries-rsa-echotcp-consumer" version="${project.version}">
+        <feature dependency="true">aries-rsa-core</feature>
+        <feature dependency="true">scr</feature>
+        <feature dependency="true">aries-rsa-echotcp-consumer-remoteprovider</feature>
+        <feature>aries-rsa-discovery-zookeeper</feature>
+        <feature>aries-rsa-provider-fastbin</feature>
+        <bundle>mvn:org.apache.aries.rsa.examples.echotcp/org.apache.aries.rsa.examples.echotcp.api/${project.version}</bundle>
+        <bundle>mvn:org.apache.aries.rsa.examples.echotcp/org.apache.aries.rsa.examples.echotcp.consumer/${project.version}</bundle>
+        <config name="org.apache.aries.rsa.provider.fastbin">
+            uri = tcp://0.0.0.0:2543
+        </config>
+    </feature>
+
+    <feature name="aries-rsa-echotcp-consumer-remoteprovider" version="${project.version}">
+        <capability>osgi.service;objectClass=org.apache.aries.rsa.examples.echotcp.api.EchoService</capability>
+    </feature>
+
+    <feature name="aries-rsa-echotcp-service" version="${project.version}">
+        <feature dependency="true">aries-rsa-core</feature>
+        <feature dependency="true">scr</feature>
+        <feature>aries-rsa-discovery-zookeeper-server</feature>
+        <feature>aries-rsa-provider-fastbin</feature>
+        <bundle>mvn:org.apache.aries.rsa.examples.echotcp/org.apache.aries.rsa.examples.echotcp.api/${project.version}</bundle>
+        <bundle>mvn:org.apache.aries.rsa.examples.echotcp/org.apache.aries.rsa.examples.echotcp.service/${project.version}</bundle>
+        <config name="org.apache.aries.rsa.provider.fastbin">
+            uri = tcp://0.0.0.0:2544
+        </config>
+    </feature>
+
+</features>
